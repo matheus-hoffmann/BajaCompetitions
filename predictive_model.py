@@ -53,6 +53,7 @@ def set_model(x, y,
     best_score = 1e30
     best_seed = 0
     for seed in range(n_splits):
+        print(u"Running iteration {}".format(seed))
         xtrain, xtest, ytrain, ytest = train_test_split(x, y,
                                                         train_size=train_percentage,
                                                         random_state=seed)
@@ -73,7 +74,6 @@ def set_model(x, y,
 
         residue = abs(ytest - ypred)
         score = max(residue)
-        print(u"{} iter - [{} ~ {}] \u00B1 {}".format(seed, int(min(residue)), int(score), int(residue.std())))
 
         if best_score > score:
             best_model = model
@@ -91,8 +91,4 @@ def set_model(x, y,
     residue = abs(ytest - ypred)
     score = max(residue)
 
-    print("Best Parameters: {}".format(best_params))
-    print("Best seed: {}".format(best_seed))
-    print("Maximum error: {}".format(int(score)))
-
-    return model
+    return model, best_params, best_seed, score

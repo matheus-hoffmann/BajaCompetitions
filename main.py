@@ -64,24 +64,14 @@ def main(argv):
 
     x = df[['safety', 'project', 'dynamics', 'endurance']].values
     y = df['position'].values
-    model = set_model(x, y,
-                      train_percentage=0.8,
-                      n_splits=10,
-                      n_folds=5,
-                      n_params=10,
-                      n_repeats=1)
+    model, _, _, _ = set_model(x, y,
+                               train_percentage=0.8,
+                               n_splits=10,
+                               n_folds=5,
+                               n_params=10,
+                               n_repeats=1)
 
     print("Predicted position is {}".format(int(model.predict(xtest))))
-
-    xname = 'endurance'
-    yname = 'position'
-    plot(x=df[xname].values,
-         y=df[yname].values,
-         xlabel=xname,
-         ylable=yname,
-         title=yname + " x " + xname,
-         marker=True,
-         grid=True)
 
 
 if __name__ == "__main__":
